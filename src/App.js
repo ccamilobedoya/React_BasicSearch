@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import LiItem from './LiItem';
 
 var FilteredList = React.createClass({
   getInitialState: function() {
@@ -29,24 +30,49 @@ var FilteredList = React.createClass({
     });
   },
 
+  EstadoBorrar:function(ElementoBorrar,e){
+    //Console.log("click");
+    //console.log(ElementoBorrar);
+    var lista = this.state.initialItems;
+    var indice = lista.indexOf(ElementoBorrar.props.itemText);
+    lista.splice(indice,1);
+    this.setState({initialItems:lista});
+
+    var lista1 = this.state.items;
+    var indice = lista1.indexOf(ElementoBorrar.props.itemText);
+    lista1.splice(indice,1);
+    this.setState({items:lista1});
+  },
+
   render: function() {
     return (
       <div>
-        <input type="text" onChange={this.filterList}/>
-        <List items={this.state.items}/>
+        <input type="text" className="form-control" onChange={this.filterList}/>
+        <List items={this.state.items} metodoBorrar={this.EstadoBorrar}/>
       </div>
     );
   }
 });
 
 var List = React.createClass({
+
+  metodo:function(){
+    console.log("pruba");
+  },
+  pintar:function(item){
+    return (<li  className="ui-state-default" key={item}>
+      <div className="checkbox">
+        <LiItem itemText={item} metodoBorrar={this.props.metodoBorrar}/>
+        </div>
+      </li>
+    );
+  },
+
   render: function () {
     return (
       <ul>
         {
-          this.props.items.map(function(item) {
-            return <li key={item}>{item}</li>;
-          })
+          this.props.items.map(this.pintar)
         }
       </ul>
     )
