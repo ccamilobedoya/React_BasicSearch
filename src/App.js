@@ -43,7 +43,8 @@ var FilteredList = React.createClass({
       });
 
       var listaCompleta = this.state.initialItems;
-      if(listaCompleta>lista){
+      if(listaCompleta.length>lista.length){
+        console.log("lista: "+listaCompleta+ " :: "+lista);
         var indice = listaCompleta.indexOf(ElementoBorrar.props.itemText);
           listaCompleta.splice(indice,1);
         }
