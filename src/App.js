@@ -4,17 +4,21 @@ import './App.css';
 import LiItem from './LiItem';
 
 var FilteredList = React.createClass({
-  getInitialState: function() {
+  getInitialState: function() { // equivale this.setState
     return {
       initialItems: [
         "Algo",
         "Cosa",
-        "For evah"
+        "For evah",
+        "Looking for",
+        "Something",
+        "Car",
+        "Asd item"
       ],
       items: []
     }
   },
-  componentWillMount: function() {
+  componentWillMount: function() { // luego del primer render
     this.setState({
       items: this.state.initialItems
     });
@@ -30,25 +34,22 @@ var FilteredList = React.createClass({
     });
   },
 
-  EstadoBorrar:function(ElementoBorrar,e){
+  estadoBorrar:function(ElementoBorrar,e){
     //Console.log("click");
     //console.log(ElementoBorrar);
     var lista = this.state.initialItems;
     var indice = lista.indexOf(ElementoBorrar.props.itemText);
     lista.splice(indice,1);
-    this.setState({initialItems:lista});
-
-    var lista1 = this.state.items;
-    var indice = lista1.indexOf(ElementoBorrar.props.itemText);
-    lista1.splice(indice,1);
-    this.setState({items:lista1});
+    this.setState({
+      initialItems:lista
+    });
   },
 
   render: function() {
     return (
       <div>
         <input type="text" className="form-control" onChange={this.filterList}/>
-        <List items={this.state.items} metodoBorrar={this.EstadoBorrar}/>
+        <List items={this.state.items} metodoBorrar={this.estadoBorrar}/>
       </div>
     );
   }
@@ -56,13 +57,11 @@ var FilteredList = React.createClass({
 
 var List = React.createClass({
 
-  metodo:function(){
-    console.log("pruba");
-  },
   pintar:function(item){
-    return (<li  className="ui-state-default" key={item}>
-      <div className="checkbox">
-        <LiItem itemText={item} metodoBorrar={this.props.metodoBorrar}/>
+    return (
+      <li  className="ui-state-default" key={item}>
+        <div className="checkbox">
+          <LiItem itemText={item} metodoBorrar={this.props.metodoBorrar}/>
         </div>
       </li>
     );
