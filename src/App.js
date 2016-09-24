@@ -33,15 +33,22 @@ var FilteredList = React.createClass({
   EstadoBorrar:function(ElementoBorrar,e){
     //Console.log("click");
     //console.log(ElementoBorrar);
-    var lista = this.state.initialItems;
-    var indice = lista.indexOf(ElementoBorrar.props.itemText);
-    lista.splice(indice,1);
-    this.setState({initialItems:lista});
 
-    var lista1 = this.state.items;
-    var indice = lista1.indexOf(ElementoBorrar.props.itemText);
-    lista1.splice(indice,1);
-    this.setState({items:lista1});
+
+      var lista1 = this.state.items;
+      var indice = lista1.indexOf(ElementoBorrar.props.itemText);
+
+      lista1.splice(indice,1);
+      this.setState({items:lista1});
+
+      var lista = this.state.initialItems;
+      //console.log("tamaños: "+lista.length+" ::: "+lista1.length);
+      if(lista>lista1){
+      var indice = lista.indexOf(ElementoBorrar.props.itemText);
+        lista.splice(indice,1);
+      }
+      this.setState({initialItems:lista});
+
   },
 
   render: function() {
